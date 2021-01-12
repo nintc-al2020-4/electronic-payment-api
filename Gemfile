@@ -31,6 +31,12 @@ gem 'seed-fu', '~> 2.3'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Testing framework
+  gem 'rspec-rails', '~> 3.8'
+  # Speed up RSpec using Spring
+  gem 'spring-commands-rspec', '~> 1.0'
+  # Simplify request test code
+  gem 'rspec-request_describer', '~> 0.3'
 end
 
 group :development do
