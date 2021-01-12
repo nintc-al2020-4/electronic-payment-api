@@ -1,0 +1,9 @@
+create_table :sessions,  force: :cascade, id: :uuid, default: -> { 'gen_random_uuid()' } do |t|
+  t.references :user, type: :uuid, null: false
+
+  t.string :token, null: false
+
+  t.timestamps null: false
+end
+
+add_foreign_key :sessions, :users, name: :fk_sessions_users
