@@ -14,12 +14,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 gem 'redis-namespace', '~> 1.6'
-# Simple, efficient background processing for Ruby
-gem 'sidekiq', '~> 6.0'
-# adds support for queueing jobs in a recurring way to sidekiq
-gem 'sidekiq-scheduler', '~> 3.0'
-# An extension to the sidekiq message processing to track your jobs
-gem 'sidekiq-status', '~> 1.1'
+# Use ridgepole for schema management
+gem 'ridgepole', '~> 0.8'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use Active Storage variant

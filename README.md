@@ -12,3 +12,8 @@
 
 - `secrets.env` を作成
     - `touch secrets.env`
+
+## 初回起動
+
+- `setup.sh` を叩く
+    - 記述されているコマンドを手動で実行してもいい
