@@ -6,6 +6,6 @@ class Session < ApplicationRecord
   before_validation :generate_token
 
   def generate_token
-    self.token = SecureRandom.hex(32) unless self.token.present?
+    self.token = SecureRandom.base64(32) unless self.token.present?
   end
 end
