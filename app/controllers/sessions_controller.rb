@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
     if user.authenticate(params[:password])
       login_session = Session.create!(user: user)
-      render status: 200, json: {token: login_session.token}
+      render json: {token: login_session.token}
     else
       render status: 401, json: {error: "Email or password is wrong."}
     end
