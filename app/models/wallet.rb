@@ -1,5 +1,6 @@
 class Wallet < ApplicationRecord
   has_many :refills
+  has_many :payments
 
   belongs_to :user
 

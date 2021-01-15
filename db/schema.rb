@@ -16,6 +16,14 @@ ActiveRecord::Schema.define(version: 0) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "wallet_id", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_payments_on_wallet_id"
+  end
+
   create_table "refills", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "wallet_id", null: false
     t.integer "amount", null: false
@@ -48,6 +56,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "payments", "wallets", name: "fk_payments_wallets"
   add_foreign_key "refills", "wallets", name: "fk_refills_wallets"
   add_foreign_key "sessions", "users", name: "fk_sessions_users"
   add_foreign_key "wallets", "users", name: "fk_wallets_users"
