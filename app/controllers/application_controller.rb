@@ -1,24 +1,34 @@
 class ApplicationController < ActionController::API
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
+  before_action :authenticate
+
+  protected
+
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      session = Session.find_by(token: token)
+
+      @user = session.user if session
+
+      session
+    end
+  end
+
+  def render_unauthorized
+    render status: :unauthorized, json: {message: "Invalid token"}
+  end
 
   private
 
-  def load_user
-    return false  unless check_required_params :token
-
-    login_session = Session.find_by(token: params[:token])
-
-    if login_session
-      login_session.user
-    else
-      render status: 401, json: {error: "Invalid token"}
-      false
-    end
+  def authenticate
+    authenticate_token || render_unauthorized
   end
 
   def check_required_params(required_keys)
     required_keys.each do |key|
       unless params[key]
-        render status: 400, json: {error: "Invalid format"}
+        render status: :bad_request, json: {message: "Invalid format"}
         return false
       end
     end
