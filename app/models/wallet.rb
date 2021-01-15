@@ -7,7 +7,7 @@ class Wallet < ApplicationRecord
 
   def add_balance(amount)
     if amount <= 0
-      raise "Amount must be greater than 0."
+      raise ArgumentError, "Amount must be greater than 0."
     end
 
     self.balance += amount
@@ -15,11 +15,11 @@ class Wallet < ApplicationRecord
 
   def subtract_balance(amount)
     if amount <= 0
-      raise "Amount must be greater than 0."
+      raise ArgumentError, "Amount must be greater than 0."
     end
 
     if self.balance < amount
-      raise "There is NOT enough balance."
+      raise ArgumentError, "There is NOT enough balance."
     end
 
     self.balance -= amount
