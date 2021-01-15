@@ -3,3 +3,4 @@
 require 'schemas/users.schema'
 require 'schemas/wallets.schema'
 require 'schemas/sessions.schema'
+require 'schemas/refills.schema'
