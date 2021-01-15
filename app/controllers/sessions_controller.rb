@@ -21,8 +21,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    return  unless @user
-
     authenticate_token.destroy!
   end
 end
