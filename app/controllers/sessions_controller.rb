@@ -24,6 +24,5 @@ class SessionsController < ApplicationController
     return  unless @user
 
     authenticate_token.destroy!
-    head :no_content
   end
 end
