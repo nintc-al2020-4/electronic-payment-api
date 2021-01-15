@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resource  :wallet,  only: [:show]
   resources :refills, only: [:create]
   resources :payments, only: [:create]
+  resource  :payment_token,  only: [:show]
 end
