@@ -1,9 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    if params[:email].nil? || params[:password].nil?
-      render status: 400, json: {error: "Format is Wrong."}
-      return
-    end
+    return  unless check_required_params [:email, :password]
 
     user = User.find_by(email: params[:email])
 
@@ -22,17 +19,14 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    unless params[:token]
-      render status: 400, json: {error: "Format is Wrong."}
-      return
-    end
+    return  unless check_required_params [:token]
 
     login_session = Session.find_by(token: params[:token])
     if login_session
       login_session.destroy!
       head :no_content
     else
-      head :bad_request
+      render status: 404, json: {error: "Invalid token"}
     end
   end
 end
