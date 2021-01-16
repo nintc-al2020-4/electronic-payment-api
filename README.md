@@ -1,19 +1,188 @@
-# Rails API テンプレート
+FORMAT: 1A
 
-## 環境設定
+# 電子決済API
 
-### アプリ名称設定
+# Group Users
 
-- `config/database.yml` のデータベース名
-    - 3箇所あるので注意
-- `config/application.rb` のモジュール名
+## ログイン [/login]
 
-### ファイル生成
+### トークン取得 [POST]
 
-- `secrets.env` を作成
-    - `touch secrets.env`
++ Request (application/json)
+  + Body
+    ```json
+    {
+      "email": "example@example.com",
+      "password": "P4ssw0rd"
+    }
+    ```
 
-## 初回起動
++ Responce 200 (application/json)
+  + Body
+    ```json
+    {
+      "token": "Base64"
+    }
+    ```
 
-- `setup.sh` を叩く
-    - 記述されているコマンドを手動で実行してもいい
++ Responce 400 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid format"
+    }
+    ```
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Email or password is wrong."
+    }
+    ```
+
+## ログアウト [/logout]
+
+### トークン破棄 [DELETE]
+
++ Request
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+
++ Responce 204
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid token"
+    }
+    ```
+
+## 口座オブジェクト [/wallet]
+
+### データ取得 [GET]
+
++ Request
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+
++ Responce 200 (application/json)
+  + Body
+    ```json
+    {
+      "balance": 0
+    }
+    ```
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid token"
+    }
+    ```
+
+## 支払いトークン [/payment_token]
+
+### トークン取得 [GET]
+
++ Request
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+
++ Responce 200 (application/json)
+  + Body
+    ```json
+    {
+      "token": "Base64"
+    }
+    ```
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid token"
+    }
+    ```
+
+# Group Process
+
+## チャージ [/refills]
+
+### チャージ [POST]
+
++ Request (application/json)
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+  + Body
+     ```json
+    {
+      "amount": 0
+    }
+    ```
+
++ Responce 204
+
++ Responce 400 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid format"
+    }
+    ```
+
++ Responce 400 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Error Message"
+    }
+    ```
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid token"
+    }
+    ```
+
+## 支払い [/payments]
+
+### 支払データ作成 [POST]
+
++ Request (application/json)
+  + Body
+     ```json
+    {
+      "amount": 0
+    }
+    ```
+
++ Responce 204
+
++ Responce 400 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid format"
+    }
+    ```
+
++ Responce 400 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Error Message"
+    }
+    ```

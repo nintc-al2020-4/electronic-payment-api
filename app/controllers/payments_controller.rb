@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+  skip_before_action :authenticate, only: [:create]
+
   def create
     return  unless check_required_params [:amount, :token]
 
