@@ -165,7 +165,8 @@ FORMAT: 1A
   + Body
      ```json
     {
-      "amount": 0
+      "amount": 0,
+      "token": "Base64"
     }
     ```
 
