@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   delete    'logout', to: 'sessions#destroy', as: :logout
 
   resource  :wallet,  only: [:show]
-  resources :refills, only: [:create]
-  resources :payments, only: [:create]
+  resources :refills, only: [:create, :index]
+  resources :payments, only: [:create, :index]
   resource  :payment_token,  only: [:show]
 end

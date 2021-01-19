@@ -117,6 +117,26 @@ FORMAT: 1A
 
 ## チャージ [/refills]
 
+### チャージ履歴取得 [GET]
+
++ Request
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+
++ Responce 200 (application/json)
+  + Body
+    ```json
+    [
+      {
+        "amount": 0,
+        "time": "YYYY-MM-DDThh:mm:ss+09:00"
+      }
+    ]
+    ```
+
+
 ### チャージ [POST]
 
 + Request (application/json)
@@ -158,6 +178,33 @@ FORMAT: 1A
     ```
 
 ## 支払い [/payments]
+
+### 支払履歴取得 [GET]
+
++ Request
+  + Headers
+    ```text
+    Authorization: Token xxxx
+    ```
+
++ Responce 200 (application/json)
+  + Body
+    ```json
+    [
+      {
+        "amount": 0,
+        "time": "YYYY-MM-DDThh:mm:ss+09:00"
+      }
+    ]
+    ```
+
++ Responce 401 (application/json)
+  + Body
+    ```json
+    {
+      "error": "Invalid token"
+    }
+    ```
 
 ### 支払データ作成 [POST]
 

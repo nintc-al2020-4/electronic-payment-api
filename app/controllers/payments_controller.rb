@@ -15,6 +15,18 @@ class PaymentsController < ApplicationController
     rescue ArgumentError, ActiveRecord::RecordInvalid => e
       render status: :bad_request, json: {error: e.message}
     end
+  end
 
+  def index
+    limit = params[:limit] || 10
+    payments = @user.wallet.payments.order(created_at: :desc).limit(limit)
+
+    response = []
+    payments.each do |payment|
+      json = {amount: payment.amount, time: payment.created_at.getlocal("+09:00").strftime("%FT%T%:z")}
+      response << json
+    end
+
+    render json: response
   end
 end
